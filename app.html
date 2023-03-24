@@ -15,11 +15,11 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/web3fonts@1.0.0/css/all.min.css" />
     <link type="text/css" rel="stylesheet" href="/fonts/Poppins/fonts.css" />
     <link type="text/css" rel="stylesheet" href="/lib/jQuery/PluginStack/Wow-js/animate.css" />
-    <link type="text/css" rel="stylesheet" href="/css/custom.css?v=101" />
+    <link type="text/css" rel="stylesheet" href="/css/custom-new.css?v=66" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.js"></script>
-    <script src="https://unpkg.com/xrpl@2.2.3/build/xrpl-latest-min.js"></script>
+    <script src="https://unpkg.com/xrpl@2.7.0/build/xrpl-latest-min.js"></script>
     <script src="https://xumm.app/assets/cdn/xumm-oauth2-pkce.min.js?v=2.4.0"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootbox@5.5.2/bootbox.all.min.js"></script>
     <script type="text/javascript"
@@ -28,22 +28,49 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@multiavatar/multiavatar/multiavatar.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script type="text/javascript" src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script type="text/javascript" src="/lib/jQuery/PluginStack/Wow-js/wow.min.js"></script>
+    <script type="text/javascript" src="/js/detectmobilebrowsers.js"></script>
     <script type="text/javascript" src="/js/custom.js?v=7"></script>
-    <script type="text/javascript" src="/networks-testnet.js?v=4"></script>
+    <script type="text/javascript" src="/networks-mainnet.js?v=9"></script>
     <link rel="icon" href="/favicon/favicon-96x96.png?v=3" />
     <link rel="shortcut icon" href="/favicon/favicon-96x96.png?v=3" />
     <meta name="description" property="description"
         content="XRP Web3 Domains - Journey into the world of Web3 - Buy once use forever" />
     <title>XRP Web3 Identity</title>
     <style>
+        canvas {
+            position: absolute;
+            z-index: 9999;
+        }
+
+        .countdown {
+            font-size: 30px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .countdown div {
+            display: inline-block;
+            color: #FFF;
+            margin-right: 30px;
+        }
+
+        .countdown span {
+            display: block;
+            text-align: center;
+            font-size: 15px;
+        }
+
         .warp-header {
             position: absolute;
         }
 
         .warp-banner {
             padding-top: 200px !important;
+            background-position: center top;
+            background-size: 100%;
         }
 
         .warp-search {
@@ -340,7 +367,7 @@
         .mydomain-show {
             margin-top: 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 20px;
         }
 
@@ -453,9 +480,13 @@
         }
 
         .modal-custom .modal-dialog {
+            width: 380px;
+            font-size: 12px;
+        }
+
+        .modal-custom-lg .modal-dialog {
             width: 600px;
-            max-width: 600px;
-            font-size: 13px;
+            font-size: 12px;
         }
 
 
@@ -513,6 +544,18 @@
             padding: 30px;
             margin-top: 20px;
             margin-bottom: 20px;
+            position: relative;
+        }
+
+        .effect {
+            position: absolute;
+            display: block;
+            left: 50%;
+            transform: translateX(-60%);
+            width: 3px;
+            height: 8px;
+            background: red;
+            opacity: 0;
         }
 
         .progressbar {
@@ -537,7 +580,7 @@
             list-style-type: none;
             font-size: 12px;
             width: 33%;
-            height: 125px;
+            height: 130px;
             float: left;
             position: relative;
             margin: 0 auto;
@@ -570,6 +613,17 @@
             margin-bottom: 10px;
         }
 
+
+        .progressbar-mobile li {
+            width: 100%;
+            float: none;
+            display: block;
+            height: 140px;
+        }
+
+        .progressbar-mobile .step-line {
+            display: none;
+        }
 
         .wallet-ui .modal-content {
             background: #FFF;
@@ -613,7 +667,6 @@
 </head>
 
 <body>
-
     <div class="warp-header">
         <div class="container">
             <div class="row align-items-center">
@@ -626,7 +679,13 @@
                     <div class="menu">
                         <div class="menu-close"><i class="fal fa-times-circle"></i></div>
                         <ul class="nav">
-                            <li class="nav-item"><a href="/">Home</a></li>
+                            <li class="nav-item active"><a href="/">Home</a></li>
+                            <li class="nav-item"><a data-id="" target="_blank"
+                                    href="https://docs.xrpdomains.xyz/">Docs</a></li>
+                            <li class="nav-item"><a data-id="" target="_blank"
+                                    href="https://nft.onxrp.com/collection/xrpdomains/">onXRP.com</a></li>
+                            <li class="nav-item"><a data-id="" target="_blank"
+                                    href="https://xrp.cafe/collection/xrpdomains">XRP.cafe</a></li>
                         </ul>
                     </div>
                 </div>
@@ -636,9 +695,8 @@
             <i class="fal fa-bars"></i>
         </div>
     </div>
-
     <div class="warp-banner text-center banner-page" style="position:relative;">
-        <div class="warp-search">
+        <div class="warp-search" style="z-index: 99; position: relative;">
             <div class="banner-nofix" style="z-index: 99; position: relative;">
                 <div class="container">
                     <div class="" style="margin-bottom: 20px;">
@@ -650,17 +708,14 @@
                         </span>
                         <span class="btn btn-lg btn-custom btn-big btn-connect-wallet"
                             style="cursor:pointer; text-transform:none;">
-                            <i class="fas fa-spinner fa-spin" style="display:none;margin-right:5px;"></i> Connect Wallet
+                            <i class="fas fa-spinner fa-spin" style="display:none;margin-right:5px;"></i> <img
+                                style="width:30px; border-radius: 7px; margin-right: 7px; border:1px solid #FFF"
+                                src='/walletlogo/xumm-icon.png' />Connect Wallet
                         </span>
                         <input type="hidden" class="currentAddress" />
                     </div>
                     <div class="alert alert-danger text-center not-support"
                         style="display:none; max-width: 800px; margin:0 auto; margin-bottom: 20px;" role="alert">
-                        <span>
-                            Network is not currently supported. Please click button below.<br />
-                            <span style="cursor: pointer; margin-top: 10px;"
-                                class="btn btn-outline-danger btn-changenetwork">Change Metamask</span>
-                        </span>
                     </div>
                     <div class="warp-form-search" style='display:none; max-width: 800px; margin: 0 auto;'>
                         <div class='text-right'>
@@ -708,7 +763,15 @@
                                             placeholder="To (Recipient)" />
                                     </div>
                                     <div class="step-wizard">
-                                        <h5 class="h6">Registering a domain name requires you to complete 3 steps</h5>
+                                        <h5 class="h6">To register a domain, complete three steps and wait for
+                                            processing ...
+                                        </h5>
+                                        <div style="margin-bottom: 20px;">
+                                            If errors occur, reload and check in "Domains Pending". Use desktop for best
+                                            experience.<br />
+                                            <span style="color:red;">On Xumm wallet make sure you press the "Close"
+                                                button when signing the transaction successfully.</span>
+                                        </div>
                                         <ul class="progressbar">
                                             <li class="step_focus step-payment"><span class="step-label">1</span><span
                                                     class="step-title">Payment</span><span class="step-status"></span>
@@ -728,7 +791,6 @@
                                 </div>
                                 <div style='display:none;' class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                                     <div class='preview'>
-                                        <img src='/NFTDomains/bg.png' />
                                         <div class="domainhere"></div>
                                     </div>
                                 </div>
@@ -737,16 +799,38 @@
                     </div>
                 </div>
             </div>
+            <div class="myorderpending" style="display:none; margin-bottom: 20px;">
+                <div class="container">
+                    <div class="mydomains">
+                        <div style="margin-bottom: 20px; border: 1px solid #DDD; padding:20px; border-radius: 5px;">
+                            <h5>Domains Pending<span style="margin-left: 5px;" class="orders_count">(0)</span></h5>
+                            <div class="domain-myorderpending">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mytransfers" style="display:none; margin-bottom: 20px;">
+                <div class="container">
+                    <div class="mydomains">
+                        <div class="myoutcoming"
+                            style="margin-bottom: 20px; border: 1px solid #DDD; padding:20px; border-radius: 5px; display: none;">
+                            <h5>Outgoing Domains<span style="margin-left: 5px;" class="orders_count">(0)</span></h5>
+                            <div class="domain-outcoming">
+                            </div>
+                        </div>
+                        <div class="myincoming"
+                            style="margin-bottom: 20px; border: 1px solid #DDD; padding:20px; border-radius: 5px; display: none;">
+                            <h5>Incoming Domains<span style="margin-left: 5px;" class="orders_count">(0)</span></h5>
+                            <div class="domain-incoming">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="warp-mydomains" style="display:none;">
                 <div class="container">
                     <div class="mydomains">
-                        <div class="myincoming"
-                            style="margin-bottom: 20px; border: 1px solid #DDD; padding:20px; border-radius: 5px; display: none;">
-                            <h4>Incoming Transfers</h4>
-                            <div class="domain-incoming">
-
-                            </div>
-                        </div>
                         <h4 class='strong' style="color: #000; margin-bottom: 15px; padding: 5px;">You have <span
                                 class='total-domains'></span> domains</h4>
                         <div class='form-group filter well'
@@ -819,18 +903,6 @@
             </div>
         </div>
         <div style="margin-bottom: 20px;"></div>
-        <div
-            style="border-radius: 5px; background: #0000003f; z-index: 999999; padding: 20px; color: #FFF; border: 1px solid #FFF; max-width: 600px; text-align: center; margin: 0 auto;">
-            <div><strong>Setup XRP Testnet:</strong></div>
-            <div>Get XRP Faucets: <a target="_blank" href="https://xrpl.org/xrp-testnet-faucet.html">Click here</a>
-            </div>
-            <div>Import XRP Testnet Account on Xumm Wallet: <a target="_blank"
-                    href="https://support.xumm.app/hc/en-us/articles/360019307399">Click here</a></div>
-            <div>Using the XUMM app on the Testnet: <a target="_blank"
-                    href="https://www.youtube.com/watch?v=EF6VYvvmzLc">Click here</a></div>
-            <div>XRP Web3 Identity - Testnet User Manual: <a target="_blank"
-                    href="https://www.youtube.com/watch?v=5Uzn04cg2D0">Click here</a></div>
-        </div>
         <img src="/images/square-warning.png" class="img-position img-position-01" alt="" />
         <img src="/images/square-success.png" class="img-position img-position-02 spin-anything" alt="" />
     </div>
@@ -844,7 +916,8 @@
             </div>
         </div>
         <div class="warp-copyright text-center">
-            Copyright © 2022 XRP Web3 Identity - A member of <a href='https://xdcdomains.xyz/'>XDCDomains.xyz</a>
+            Copyright © 2023 XRP Web3 Identity - A member of <a href='https://xdcdomains.xyz/'
+                target="_blank">XDCDomains.xyz</a>
         </div>
     </div>
     <script type="text/javascript">
@@ -867,7 +940,7 @@
 
         var balance;
 
-        var owner = 'rN3bCxmEbR3Ua8YSh274WCtWmLHi8LsBBY';
+        var owner = '';
 
         var auth = new XummPkce('1c7dfba7-aadd-4b03-bafb-ca5c8f84bb4f');
 
@@ -875,15 +948,25 @@
 
         var client;
 
+        var minting = false;
+
+        var isMobile = jQuery.browser.mobile;
+
+        if (isMobile == true) {
+            $('.progressbar').addClass('progressbar-mobile');
+        }
+
         window.addEventListener('load', async () => {
-            //await connect();
+
         });
 
-        var uuid = uuidv4();
+        var uuid = '';// uuidv4();
 
         var pusher = new Pusher('f730ce75d58b8975fba7', {
             cluster: 'ap1'
         });
+
+        var channel = pusher.subscribe('xrpdomains_pusher');
 
         $(document).on('click', '.btn-connect-wallet', async () => {
             auth.authorize().then(
@@ -897,7 +980,8 @@
 
 
         auth.on('error', error => {
-            //console.log('error', error)
+            console.log('error', error);
+            bootbox.alert('There was an error connecting the wallet, please make sure you use the Xumm Wallet. Error code: ' + error.toString() + '');
         });
 
         auth.on('success', async () => {
@@ -905,6 +989,7 @@
             auth.state().then(state => {
                 if (state.me) {
                     //console.log('success, me', JSON.stringify(state.me));
+                    //connect(state);
                 }
             });
         });
@@ -952,6 +1037,7 @@
         const logOut = async () => {
             if (auth) {
                 auth.logout();
+                client.disconnect();
             }
 
             try {
@@ -961,6 +1047,9 @@
 
         const connect = async (authorized) => {
 
+            if ($('.btn-connect-wallet:visible').length == 0) {
+                return;
+            }
             if (isConnection == true) {
                 return;
             }
@@ -1000,7 +1089,9 @@
 
                 //SignIn
                 var _sign = new Object();
+
                 _sign.owner = currentAddress;
+
                 await doAjax('/api/auth/signIn', JSON.stringify(_sign), 'POST');
 
                 notify('alert-success', 'Successfully connected your wallet');
@@ -1011,48 +1102,15 @@
 
                 await client.connect();
 
-                try {
-                    var _balance = (await client.getXrpBalance(currentAddress));
-
-                    balance = parseFloat(_balance).toFixed(3);
-
-                } catch { }
-
-
-                // check reverseOf
-                try {
-
-                } catch { }
-
-
-                text = domainReverse;
-
-                if (domainReverse == '') {
-                    for (let i = 0; i < 6; i++) {
-                        text += currentAddress[i];
-                    }
-
-                    text += '...'
-
-                    for (let i = currentAddress.length - 4; i < currentAddress.length; i++) {
-                        text += currentAddress[i];
-                    }
-                }
-
-                text += ' (' + balance + ' ' + currentNetwork.nativeCurrency.symbol + ')';
-
-                text += " <i class='fas fa-copy btn-copy' title='Copy address to clipboard' style='cursor:pointer; margin-left:5px;'></i>";
-                text += " <i class='fas fa-sign-out btn-disconnect' title='Disconnect' style='cursor:pointer; margin-left:5px;'></i>";
-
-                $('.btn-connect-wallet').html(text).addClass('wallet-connected').prop('disabled', true).css('cursor', 'default');
-
-                $('.btn-connect-wallet  i.fa-spin').hide();
-
-                $('.warp-form-search').show();
+                await showAccount();
 
                 await getOrderPending();
 
+                await getDomainTransfers();
+
                 preInit();
+
+                $('.warp-form-search').show();
 
                 isConnection = true;
 
@@ -1064,6 +1122,267 @@
                 $('.btn-connect-wallet').removeAttr('disabled');
             }
         };
+
+        const showAccount = async () => {
+            if (currentAddress == '') {
+                return;
+            }
+
+            domainReverse = '';
+
+            try {
+                var _balance = (await client.getXrpBalance(currentAddress));
+                balance = parseFloat(_balance).toFixed(3);
+            } catch (err) {
+                var error = err.toString();
+                if (error.indexOf('Account not found') > 0) {
+                    bootbox.alert('alert-danger', '<span class="text-danger">Account not found or not activated</span>');
+                    $('.btn-connect-wallet i.fa-spin').hide();
+                    return;
+                }
+            }
+
+            // check reverseOf
+            try {
+                var objDomain = await doAjax('/api/xrplnft/getName?address=' + currentAddress, '', 'GET');
+                domainReverse = objDomain.data;
+            } catch { }
+
+
+            text = domainReverse;
+
+            if (domainReverse == '') {
+                text = shortAddress(currentAddress);
+            }
+
+            text += ' (' + balance + ' ' + currentNetwork.nativeCurrency.symbol + ')';
+
+            text += " <i class='fas fa-copy btn-copy' title='Copy address to clipboard' style='cursor:pointer; margin-left:7px;'></i>";
+            text += " <i class='fas fa-sign-out btn-disconnect' title='Disconnect' style='cursor:pointer; margin-left:7px;'></i>";
+            $('.btn-connect-wallet').html(text).addClass('wallet-connected').prop('disabled', true).css('cursor', 'default');
+            $('.btn-connect-wallet  i.fa-spin').hide();
+        }
+
+        var isSetPrimary = false;
+
+        var dialog_setPrimary;
+
+        const setPrimary = async (obj, isremove) => {
+
+            var tokenId = obj.tokenId;
+            var owner = currentAddress;
+            var domain = obj.domain;
+
+            var title = "Set primary name: " + domain;
+
+            if (isremove == 'true') {
+                title = "Remove primary name: " + domain;
+            }
+
+            obj.isremove = isremove;
+
+            var temp = '<div class="text-center">';
+            temp += '<div class="text-center">';
+            temp += '<div class="form-group text-center" style="padding: 15px; margin-bottom: 25px; border-radius: 5px; border: 1px solid #DDD;">You can designate one of your name to represent your account and serve as your Web3 username and Web3 profile. This is done by getting a name default from the your wallet address. Each wallet address can only have one Primary name, but you can change it at any time. <br/></div>';
+            temp += "<div class='form-group text-center show-result' style='margin-top: 10px;margin-bottom: 10px;'><button class='btn btn-success btn-comfirm-reverse'><i class='fas fa-spinner fa-spin' style='display:none;margin-right: 5px;'></i>Confirm Now</button></div>";
+            temp += '</div>';
+            temp += "<input type='hidden' class='hiddenTransfers' value='" + JSON.stringify(obj) + "' />";
+
+            dialog_setPrimary = bootbox.dialog({
+                title: title,
+                message: temp,
+                closeButton: true,
+                size: 'large',
+                onHide: function (e) {
+                    showAccount();
+                    var scrollDiv = $('.btn-connect-wallet').offset().top - 30;
+                    window.scrollTo({ top: scrollDiv, behavior: 'smooth' });
+                }
+            });
+        }
+
+        const setPrimaryComfirm = async (obj) => {
+
+            if (isSetPrimary == true) {
+                return;
+            }
+
+            isSetPrimary = true;
+
+            $('.btn-comfirm-reverse i').show();
+
+            var domain_memo = xrpl.convertStringToHex(obj.domain);
+
+            var payload_SignIn = {
+                txjson: {
+                    TransactionType: 'SignIn',
+                    Memos: [
+                        {
+                            "Memo": {
+                                "MemoData": domain_memo
+                            }
+                        }
+                    ]
+                },
+                submit: false
+            }
+
+            sdk.payload.createAndSubscribe(payload_SignIn, function (payloadEvent) {
+                if (typeof payloadEvent.data.signed !== 'undefined') {
+                    return payloadEvent.data
+                }
+            }).then(function ({ created, resolved }) {
+                if (created.pushed == false) {
+                    return;
+                }
+
+                dialog_setPrimary.find('.bootbox-body .show-result').html('<p class="text-center" style="color:green;"><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i> Now check your Xumm wallet, push notification + sign request ...</p>');
+
+                var payload_uuid = created.uuid;
+
+                resolved.then(async function (payloadOutcome) {
+                    if (payloadOutcome.signed) {
+
+                        const result = await sdk.payload.get(payload_uuid);
+
+                        var sign = result.response.hex
+                        var _obj = new Object();
+                        _obj.domain = obj.domain;
+                        _obj.owner = currentAddress;
+                        _obj.nftoken_id = obj.tokenId;
+                        _obj.isremove = obj.isremove;
+                        _obj.sign = sign;
+
+                        var title = "Set primary name: " + _obj.domain;
+
+                        if (_obj.isremove == 'true') {
+                            title = "Remove primary name: " + _obj.domain;
+                        }
+
+                        var setPrimaryUrl = '/api/xrplnft/setPrimary';
+
+                        var objSetPrimary = await doAjax(setPrimaryUrl, JSON.stringify(_obj), 'POST');
+
+                        if (objSetPrimary.status == true) {
+                            dialog_setPrimary.find('.bootbox-body .show-result').html('<p class="text-center" style="color:green;">' + title + ' succeeded!</p>');
+
+                            callConfetti();
+
+                            isSetPrimary = false;
+                            $('.btn-comfirm-reverse i').hide();
+                        }
+                        else {
+                            dialog_setPrimary.find('.bootbox-body .show-result').html('<p class="text-center mb-0" style="color:red;">' + title + ' failed </p>');
+                            isSetPrimary = false;
+                            $('.btn-comfirm-reverse i').hide();
+                        }
+                    } else {
+                        dialog_setPrimary.find('.bootbox-body .show-result').html('<p class="text-center" style="color:red;">Xumm Rejected</p>');
+                    }
+                })
+            })
+                .catch(function (payloadError) {
+
+                });
+        }
+
+        const transferComfirm = async (obj) => {
+            var domain = obj.domain;
+            var tokenId = obj.tokenId;
+            var to = obj.to;
+            var from = obj.from;
+            var dialog = bootbox.dialog({
+                title: 'Create sell offer: ' + domain,
+                message: '<p class="text-center">Create sell offer for <strong>' + domain + '</strong> destination <strong>' + to + '</strong><br/>Please wait while we do something... and do not close the browser.<br/><br/> <i class="fas fa-4x fa-spinner fa-spin"></i></p>',
+                closeButton: true,
+                className: 'modal-custom',
+                size: 'large',
+                onHide: function (e) {
+                    $('.btn-transfer-comfirm i').hide();
+                    $('.btn-transfer-comfirm').attr('disabled', false);
+                }
+            });
+
+            var days = 10;
+            let d = new Date();
+            d.setDate(d.getDate() + parseInt(days));
+            var expirationDate = xrpl.isoTimeToRippleTime(d);
+            var domain_memo = xrpl.convertStringToHex(domain);
+            var expiration_memo = xrpl.convertStringToHex('Expiration: ' + d.toDateString());
+            var eeceiver_memo = xrpl.convertStringToHex('Receiver: ' + to);
+
+            const createOffer_payload = {
+                "TransactionType": "NFTokenCreateOffer",
+                "Account": currentAddress,
+                "NFTokenID": tokenId,
+                "Amount": xrpl.xrpToDrops("0"),
+                "Flags": parseInt(1),
+                "Expiration": expirationDate,
+                "Destination": to,
+                "Memos": [
+                    {
+                        "Memo": {
+                            "MemoData": domain_memo
+                        }
+                    },
+                    {
+                        "Memo": {
+                            "MemoData": eeceiver_memo
+                        }
+                    },
+                    {
+                        "Memo": {
+                            "MemoData": expiration_memo
+                        }
+                    }
+                ]
+            }
+
+            sdk.payload.createAndSubscribe(createOffer_payload, function (payloadEvent) {
+                if (typeof payloadEvent.data.signed !== 'undefined') {
+                    return payloadEvent.data
+                }
+            }).then(function ({ created, resolved }) {
+                resolved.then(async function (payloadOutcome) {
+                    if (payloadOutcome.signed) {
+                        var explorer = '<br/><a target="_black" href="' + currentNetwork.blockExplorerUrls[0] + 'transactions/' + payloadOutcome.txid + '">View Transaction</a>';
+
+                        dialog.find('.bootbox-body').html('<p class="text-center" style="color:green;">Create sell offer successful! Please notify ' + to + ' and ask them to accept<br/>' + explorer + '</p>');
+
+                        getDomainTransfers();
+                    } else {
+                        dialog.find('.bootbox-body').html('<p class="text-center mb-0" style="color:red;">Transaction failed</p>');
+                    }
+                })
+            })
+                .catch(function (payloadError) {
+                    dialog.find('.bootbox-body').html('<p class="text-center mb-0" style="color:red;">Transaction failed, ' + payloadError.message + '</p>');
+                })
+        }
+
+        const transferForm = (obj) => {
+            var domain = obj.domain;
+            var tokenId = obj.tokenId;
+            var image = obj.image;
+            var temp = '<div class="warp-setavatar text-center">';
+            temp += '<div class="sendform text-left">';
+            temp += "<div class='form-group nftpreview'><span class='strong'>" + domain + "</span></div>";
+            temp += "<div class='form-group'><label>From: </label><input type='text' class='form-control from_address' value='" + currentAddress + "' disabled /></div>";
+            temp += "<div class='form-group'><label>To (Recipient): </label><input type='text' placeholder='Enter XRP address or .xrp domain name' class='form-control to_address' value='' /><input type='hidden' class='to_hidden_address' /></div><div class='to_reverse' style='display:none;clear:both;'></div>";
+            temp += "<div class='form-group text-center' style='margin-top: 10px;'><button class='btn btn-success btn-lg btn-transfer-comfirm' disabled><i class='fas fa-spinner fa-spin' style='display:none;'></i>Transfer Now</button></div>";
+            temp += '</div>';
+            temp += "<input type='hidden' class='hiddenTransfers' value='" + JSON.stringify(obj) + "' />";
+            var dialog = bootbox.dialog({
+                title: 'Transfer ' + domain,
+                message: '<div class="text-center">' + temp + '</div>',
+                closeButton: true,
+                size: 'extra-large',
+                onEscape: true,
+                onHide: function (e) {
+                    myDomains(currentAddress);
+                }
+            });
+        }
 
         var owner = '';
 
@@ -1088,9 +1407,12 @@
                 var fulldomain = fullDomain(domain, tld);
 
                 try {
-                    var url = 'api/xrplnft/getNFTsbyIssuer?issuer=' + currentNetwork.contactAddress + '&network=' + currentNetwork.networkType + '&domain=' + fulldomain;
-                    var result = await doAjax(url, '', 'GET');
-                    owner = result.data[0].Owner;
+                    //var url = 'api/xrplnft/checkLimit?owner=' + currentAddress + '&domain=' + fulldomain;
+                    //var result = await doAjax(url, '', 'GET');
+                    //if (result.status == false) {
+                    //    bootbox.alert(result.msg);
+                    //    return;
+                    //}
                 } catch (e) {
                 }
 
@@ -1099,6 +1421,14 @@
                         var url = 'api/xrplnft/getOrderbyDomain?domain=' + fulldomain;
                         var result = await doAjax(url, '', 'GET');
                         owner = result.data.owner;
+                    } catch { }
+                }
+
+                if (owner == '') {
+                    try {
+                        var url = 'api/xrplnft/getNFTsbyIssuer?issuer=' + currentNetwork.contractAddress + '&network=' + currentNetwork.networkType + '&domain=' + fulldomain;
+                        var result = await doAjax(url, '', 'GET');
+                        owner = result.data[0].Owner;
                     } catch { }
                 }
 
@@ -1141,6 +1471,8 @@
 
             var price = 0;
 
+            var discount = parseFloat(currentNetwork.discount);
+
             var price6char = parseFloat(currentNetwork.basePrice);
 
             var price5char = price6char * 1.5;
@@ -1171,6 +1503,8 @@
                 price = price6char;
             }
 
+            price = price - (price * discount) / 100;
+
             var fulldomain = fullDomain(domain, tld);
 
             //var pricelist = '<ul class="list-group"><li class="level-item"><span class="level-label">2 characters</span><span class="level-price">' + price2char + ' ' + currentNetwork.nativeCurrency.symbol + '</span></li>';
@@ -1183,7 +1517,10 @@
 
             $('.pricelist').html(pricelist);
 
-            var currentprice = '' + fulldomain + '<br/>List Price: ' + price + ' ' + currentNetwork.nativeCurrency.symbol
+            var currentprice = '' + fulldomain + '<br/>Price: ' + price + ' ' + currentNetwork.nativeCurrency.symbol
+            if (discount > 0) {
+                currentprice = '' + fulldomain + '<br/>Price (-' + discount + '%): ' + price + ' ' + currentNetwork.nativeCurrency.symbol
+            }
 
             $('.result-price').html(currentprice);
 
@@ -1193,19 +1530,6 @@
 
             $('.result-details').show();
         };
-
-        var channel = pusher.subscribe('xrpdomains_pusher');
-        channel.bind(uuid, function (data) {
-            var message = data.message;
-            var obj = JSON.parse(message);
-            if (obj.mint_tx != '') {
-                $('.progressbar .step-mint .step-status').html('<span class="text-center" style="color:green;">Minted ' + obj.domain + '</span>');
-                $('.progressbar .step-mint').addClass('step-done');
-            }
-            if (obj.offer_id != '') {
-                $('.progressbar .step-transfer .step-status').html('<span class="text-center"><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i>Transfering ' + obj.domain + ': Accepting ...</span>');
-            }
-        });
 
         const buyDomainNew = async (domain) => {
 
@@ -1229,13 +1553,6 @@
                 return;
             }
 
-            try {
-                var url = 'api/xrplnft/getNFTsbyIssuer?issuer=' + currentNetwork.contactAddress + '&network=' + currentNetwork.networkType + '&domain=' + fulldomain;
-                var result = await doAjax(url, '', 'GET');
-                owner = result.data[0].Owner;
-            } catch (e) {
-            }
-
             if (owner == '') {
                 try {
                     var url = 'api/xrplnft/getOrderbyDomain?domain=' + fulldomain;
@@ -1244,11 +1561,20 @@
                 } catch { }
             }
 
+            try {
+                var url = 'api/xrplnft/getNFTsbyIssuer?issuer=' + currentNetwork.contractAddress + '&network=' + currentNetwork.networkType + '&domain=' + fulldomain;
+                var result = await doAjax(url, '', 'GET');
+                owner = result.data[0].Owner;
+            } catch (e) {
+            }
+
             if (owner !== '') {
                 return;
             }
 
             var price;
+
+            var discount = parseFloat(currentNetwork.discount);
 
             var _length = domain.length;
 
@@ -1282,72 +1608,512 @@
                 price = price6char;
             }
 
+            price = price - (price * discount) / 100;
+
+            var amount = price;
+
+            var MemoData = xrpl.convertStringToHex(fulldomain);
+
             var payload = {
                 txjson: {
                     "TransactionType": "Payment",
                     "Account": currentAddress,
                     "Amount": xrpl.xrpToDrops(price),
-                    "Destination": currentNetwork.contactAddress
+                    "Destination": currentNetwork.contractAddress,
+                    "Memos": [
+                        {
+                            "Memo": {
+                                "MemoData": MemoData
+                            }
+                        }
+                    ]
                 }
             }
 
-            $('.progressbar .step-payment .step-status').html('<span class="text-center"><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i>Xumm Wallet: Sign Request ...</span>');
+            $('.progressbar .step-payment .step-status').html('<span class="text-center"><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i>Xumm Wallet: push notification + sign request ...</span>');
 
             sdk.payload.createAndSubscribe(payload, function (payloadEvent) {
                 if (typeof payloadEvent.data.signed !== 'undefined') {
-                    // What we return here will be the resolved value of the `resolved` property
                     return payloadEvent.data
                 }
             })
-                .then(function ({ created, resolved }) {
-                    setTimeout(function () {
-                        alert(created.pushed
-                            ? 'Now check Xumm, there should be a push notification + sign request in your event list waiting for you. Please wait while we do something... and do not close the this alert box!'
-                            : 'Now check Xumm, there should be a sign request in your event list waiting for you ;) (This would have been pushed, but it seems you did not grant Xumm the push permission)'
-                        )
-                    }, 1000);
+                .then(async function ({ created, resolved }) {
 
-                    console(JSON.stringify(created));
+
+                    if (created.pushed == false) {
+                        return;
+                    }
+
+                    var payload_uuid = created.uuid;
+
+                    var payment_tx = '';
+
+                    var status = '';
+
+                    var objIntervalDb;
+
+                    if (isMobile == true) {
+                        try {
+                            objIntervalDb = setInterval(async () => {
+                                if (payment_tx !== null && payment_tx !== '' && status !== '') {
+                                    clearInterval(objIntervalDb);
+                                    $('.progressbar .step-payment .step-status').html('<span class="text-center" style=""><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i>Xumm Wallet: Accepted & Checking</span>');
+                                    if (status == 'tesSUCCESS') {
+                                        await mintDomain(fulldomain, amount, status, payment_tx, payload_uuid, '');
+                                    }
+                                    else {
+                                        bootbox.alert('Transaction failed, please check for status ' + status + ', please reload the browser.');
+                                    }
+                                }
+                                else {
+                                    try {
+                                        var result = await sdk.payload.get(payload_uuid);
+                                        if (result) {
+                                            status = result.response.dispatched_result;
+                                            payment_tx = result.response.txid;
+                                        }
+                                    } catch { }
+                                }
+                            }, 5000);
+
+                        } catch (e) {
+                            bootbox.alert('The transaction is not complete, but dont worry. Please reload your browser and complete the steps under Domains Pending section <br/><a class="btn btn-success" href="/app">Reload</a>');
+                        }
+                    }
 
                     resolved.then(async function (payloadOutcome) {
-                        if (payloadOutcome.signed) {
-                            $('.progressbar .step-payment .step-status').html('<span class="text-center" style=""><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i>Xumm Wallet: Confirmed</span>');
+                        if (payloadOutcome.signed == false) {
+                            clearInterval(objIntervalDb);
 
-                            await mintDomain(fulldomain, payloadOutcome.txid);
-                        } else {
-                            $('.progressbar .step-payment .step-status').html('<span class="text-center" style="color:red;">Xumm Wallet: Rejected</span>');
+                            $('.progressbar .step-payment .step-status').html('<span class="text-center" style="color:red;">Xumm Wallet: Rejected + Payment not success</span>');
+                            return;
                         }
-                    })
+                        else {
+                            if (isMobile == false) {
+                                try {
+                                    $('.progressbar .step-payment .step-status').html('<span class="text-center" style=""><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i>Xumm Wallet: Accepted & Checking ...</span>');
+                                    var objInterval = setInterval(async () => {
+                                        if (payment_tx !== null && payment_tx !== '' && status !== '') {
+                                            clearInterval(objInterval);
+
+                                            if (status == 'tesSUCCESS') {
+                                                await mintDomain(fulldomain, amount, status, payment_tx, payload_uuid, '');
+                                            }
+                                            else {
+                                                bootbox.alert('Transaction failed, please check for status ' + status + ', please reload the browser.');
+                                            }
+                                        }
+                                        else {
+                                            try {
+                                                const result = await sdk.payload.get(payload_uuid);
+                                                if (result) {
+                                                    status = result.response.dispatched_result;
+                                                    payment_tx = result.response.txid;
+                                                }
+                                            } catch { }
+                                        }
+                                    }, 5000);
+                                } catch (e) {
+                                    bootbox.alert('The transaction is not complete, but dont worry. Please reload your browser and complete the steps under Domains Pending section <br/><a class="btn btn-success" href="/app">Reload</a>');
+                                }
+                            }
+                        }
+                    });
                 })
                 .catch(function (payloadError) {
                     $('.progressbar .step-payment .step-status').html('<span class="text-center" style="color:red;">Xumm Wallet: ' + payloadError + '</span>');
                 })
+        };
 
+        const mintDomain = async (domain, amount, payment_status, payment_tx, payload_uuid, nftoken_id, dialog) => {
+
+            try {
+                if (payload_uuid !== '') {
+                    channel.bind(payload_uuid, function (data) {
+                        var message = data.message;
+                        var obj = JSON.parse(message);
+
+                        if (typeof obj.mint_tx !== 'undefined' && obj.mint_tx != '') {
+                            var explorer_mint = '<br/><a target="_black" href="' + currentNetwork.blockExplorerUrls[0] + 'transactions/' + obj.mint_tx + '">View Transaction</a>';
+                            $('.progressbar .step-mint .step-status').html('<span class="text-center" style="color:green;">Minted ' + obj.domain + '</span>' + explorer_mint);
+                            $('.progressbar .step-mint').addClass('step-done');
+                            if (dialog) {
+                                dialog.find('.bootbox-body .dialog-status').html('<span class="text-center" style="color:green;">Minted ' + obj.domain + '</span>' + explorer_mint + '');
+                            }
+                        }
+
+                        if (typeof obj.offer_id !== 'undefined' && obj.offer_id != '') {
+                            $('.progressbar .step-transfer .step-status').html('<span class="text-center"><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i>Transfering ' + obj.domain + ': Accepting ...</span>');
+                            if (dialog) {
+                                dialog.find('.bootbox-body .dialog-status').html('<span class="text-center" style="color:green;">Transfering ' + obj.domain + '</span>');
+                            }
+                        }
+                    });
+                }
+            } catch (e) {
+                //alert(e.toString());
+            }
+
+            try {
+                // 1: Payment
+
+                domain = domain.replaceAll(/\s/g, '').toLowerCase();
+
+                var url = currentNetwork.baseUri + domain;
+
+                if (payment_status !== 'tesSUCCESS') {
+                    $('.progressbar .step-payment .step-status').html('<span class="text-center" style="color:red;">Payment not successful</span>');
+                    return;
+                }
+
+                var explorer_payment = '<br/><a target="_black" href="' + currentNetwork.blockExplorerUrls[0] + 'transactions/' + payment_tx + '">View Transaction</a>';
+
+                $('.progressbar .step-payment .step-status').html('<span class="text-center" style="color:green;">Payment successful</span>' + explorer_payment);
+
+                $('.progressbar .step-payment').addClass('step-done');
+
+                $('.progressbar .step-mint .step-status').html('<span class="text-center" style=""><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i>Minting ' + domain + '</span>');
+
+                var dbowner = '';
+                try {
+                    var url = 'api/xrplnft/getNFTsbyIssuer?issuer=' + currentNetwork.contractAddress + '&network=' + currentNetwork.networkType + '&domain=' + domain;
+                    var result = await doAjax(url, '', 'GET');
+                    dbowner = result.data[0].Owner;
+                } catch (e) {
+                }
+
+                if (dbowner == '') {
+                    try {
+                        var uri_check = xrpl.convertStringToHex(url);
+                        var _url = 'api/xrplnft/getNFTsbyURI?issuer=' + currentNetwork.contractAddress + '&network=' + currentNetwork.networkType + '&uri=' + uri_check;
+                        var result = await doAjax(_url, '', 'GET');
+                        dbowner = result.data[0].Owner;
+                    } catch { }
+                }
+
+                if (dbowner !== '') {
+                    $('.progressbar .step-payment .step-status').html('<span class="text-center" style="color:red;">Already minted</span>');
+                    return;
+                }
+
+                var objOrder = new Object();
+                objOrder.domain = domain;
+                objOrder.payment_tx = payment_tx;
+                objOrder.buyer = currentAddress;
+                objOrder.owner = currentAddress;
+                objOrder.issuer = currentNetwork.contractAddress;
+                objOrder.receiver = currentNetwork.contractAddress;
+                objOrder.amount = amount;
+                objOrder.price = currentNetwork.basePrice;
+                objOrder.base_uri = currentNetwork.baseUri;
+                objOrder.network = currentNetwork.networkType;
+                objOrder.uri = "";
+                objOrder.url = url;
+                objOrder.uuid = payload_uuid;
+                objOrder.payload_uuid = payload_uuid;
+                objOrder.ismobile = isMobile;
+                objOrder.nftoken_id = nftoken_id;
+
+                if (nftoken_id == '') {
+                    var createOrderUrl = '/api/xrplnft/createOrder';
+                } else {
+                    var createOrderUrl = '/api/xrplnft/createTransfer';
+                }
+
+                const createOrder = await doAjax(createOrderUrl, JSON.stringify(objOrder), 'POST');
+
+                if (typeof createOrder.data !== 'undefined') {
+                    if (createOrder.data.isOK == true) {
+
+                        if (createOrder.data.mint_tx !== '') {
+                            if ($('.progressbar .step-mint').hasClass('step-done') == false) {
+                                var explorer_mint = '<br/><a target="_black" href="' + currentNetwork.blockExplorerUrls[0] + 'transactions/' + createOrder.data.mint_tx + '">View Transaction</a>';
+                                $('.progressbar .step-mint .step-status').html('<span class="text-center" style="color:green;">Minted ' + domain + '</span>' + explorer_mint);
+                                $('.progressbar .step-mint').addClass('step-done');
+                            }
+
+                            var endpoint = '/api/domains/add2Queue?domain=' + domain + '';
+                            doAjax(endpoint, '', 'GET');
+                        }
+
+                        // 3: Transfers
+                        if (createOrder.data.offer_id !== '') {
+                            $('.progressbar .step-transfer .step-status').html('<span class="text-center" style=""><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i>Transfering ' + domain + ': push notification + sign request on Xumm wallet ...</span>');
+
+                            if (dialog) {
+                                dialog.find('.bootbox-body .dialog-status').html('<span class="text-center mb-0" style="color:green;">Transfering ' + domain + ': push notification + sign request on Xumm wallet ...</span>');
+                            }
+
+                            var MemoData = xrpl.convertStringToHex(domain);
+
+                            const accept_payload = {
+                                "TransactionType": "NFTokenAcceptOffer",
+                                "Account": currentAddress,
+                                "NFTokenSellOffer": createOrder.data.offer_id,
+                                "Memos": [
+                                    {
+                                        "Memo": {
+                                            "MemoData": MemoData
+                                        }
+                                    }
+                                ]
+                            }
+
+
+                            sdk.payload.createAndSubscribe(accept_payload, function (payloadEvent) {
+                                if (typeof payloadEvent.data.signed !== 'undefined') {
+                                    // What we return here will be the resolved value of the `resolved` property
+                                    return payloadEvent.data
+                                }
+                            })
+                                .then(function ({ created, resolved }) {
+
+                                    var payload_uuid = created.uuid;
+
+                                    var objIntervalDb;
+
+                                    if (payload_uuid !== '') {
+                                        channel.bind(payload_uuid, function (data) {
+                                            var message = data.message;
+                                            var obj = JSON.parse(message);
+
+                                            //alert(message);
+
+                                            if (typeof obj.accept_offer_tx !== 'undefined' && obj.accept_offer_tx != '') {
+
+                                                //alert(obj.accept_offer_tx);
+
+                                                var explorer_transfer = '<br/><a target="_black" href="' + currentNetwork.blockExplorerUrls[0] + 'transactions/' + obj.accept_offer_tx + '">View Transaction</a>';
+
+                                                $('.progressbar .step-transfer .step-status').html('<span class="text-center" style="color:green;">Transfered ' + domain + '</span>' + explorer_transfer);
+
+                                                $('.progressbar .step-transfer').addClass('step-done');
+
+                                                if (dialog) {
+                                                    dialog.find('.bootbox-body .dialog-status').html('<span class="text-center" style="color:green;">Transfered ' + domain + '</span>' + explorer_transfer);
+                                                }
+                                            }
+                                        });
+                                    }
+
+                                    var tx = '';
+
+                                    var status = '';
+
+                                    if (isMobile == true) {
+                                        objIntervalDb = setInterval(async () => {
+                                            if (tx !== null && tx !== '' && status !== '') {
+                                                clearInterval(objIntervalDb);
+
+                                                if ($('.progressbar .step-transfer').hasClass('step-done') == false) {
+                                                    if (status == 'tesSUCCESS') {
+                                                        var objAcceptOffered = new Object();
+                                                        objAcceptOffered.domain = domain;
+                                                        objAcceptOffered.owner = currentAddress;
+                                                        objAcceptOffered.accept_offer_tx = tx;
+                                                        var acceptOfferedOrderUrl = '/api/xrplnft/acceptOfferedOrder';
+                                                        doAjax(acceptOfferedOrderUrl, JSON.stringify(objAcceptOffered), 'POST');
+
+                                                        var explorer_transfer = '<br/><a target="_black" href="' + currentNetwork.blockExplorerUrls[0] + 'transactions/' + tx + '">View Transaction</a>';
+
+                                                        $('.progressbar .step-transfer .step-status').html('<span class="text-center" style="color:green;">Transfered ' + domain + '</span>' + explorer_transfer);
+
+                                                        $('.progressbar .step-transfer').addClass('step-done');
+
+                                                        if (dialog) {
+                                                            dialog.find('.bootbox-body .dialog-status').html('<span class="text-center mb-0" style="color:green;">Transfered ' + domain + ': Done</span>' + explorer_transfer + '');
+                                                            dialog.find('.bootbox-body i').hide();
+                                                        }
+                                                    }
+                                                    else {
+                                                        dialog.find('.bootbox-body').html('<p class="text-center"><span class="text-center mb-0" style="color:green;">Transfer ' + domain + ': Rejected</span></p>');
+                                                    }
+                                                }
+
+                                                $('.btn-buy i').hide();
+
+                                                setTimeout(function () {
+                                                    clickenble = true;
+
+                                                    $('.btn-buy').attr('disabled', true);
+
+                                                    myDomains(currentAddress, true);
+
+                                                    $('.result-search').hide();
+
+                                                    $('.step-status').html('');
+
+                                                    minting = false;
+                                                }, 5000);
+                                            }
+                                            else {
+                                                try {
+                                                    var result = await sdk.payload.get(payload_uuid);
+                                                    if (result) {
+                                                        status = result.response.dispatched_result;
+                                                        tx = result.response.txid;
+                                                    }
+                                                } catch { }
+                                            }
+                                        }, 5000);
+                                        try {
+
+
+                                        } catch (e) {
+                                            bootbox.alert('There was a transaction error, please refresh your browser and check the domain name under "Orders Pending"');
+                                        }
+                                    }
+
+                                    resolved.then(function (payloadOutcome) {
+                                        if (payloadOutcome.signed) {
+                                            if (isMobile == false) {
+                                                $('.progressbar .step-transfer .step-status').html('<span class="text-center"><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i>Transfering ' + domain + ': Accepting ...</span>');
+
+                                                var objAcceptOffered = new Object();
+                                                objAcceptOffered.domain = domain;
+                                                objAcceptOffered.owner = currentAddress;
+                                                objAcceptOffered.accept_offer_tx = payloadOutcome.txid;
+                                                var acceptOfferedOrderUrl = '/api/xrplnft/acceptOfferedOrder';
+                                                doAjax(acceptOfferedOrderUrl, JSON.stringify(objAcceptOffered), 'POST');
+
+                                                var explorer_transfer = '<br/><a target="_black" href="' + currentNetwork.blockExplorerUrls[0] + 'transactions/' + payloadOutcome.txid + '">View Transaction</a>';
+
+                                                $('.progressbar .step-transfer .step-status').html('<span class="text-center" style="color:green;">Transfered ' + domain + '</span>' + explorer_transfer);
+
+                                                $('.progressbar .step-transfer').addClass('step-done');
+
+                                                if (dialog) {
+                                                    dialog.find('.bootbox-body .dialog-status').html('<span class="text-center mb-0" style="color:green;">Transfered ' + domain + ': Done</span>' + explorer_transfer + '');
+                                                    dialog.find('.bootbox-body i').hide();
+                                                }
+
+                                                callConfetti();
+
+                                                //setTimeout(function () {
+                                                //    bootbox.alert('Congratulations, ' + domain + ' has been successfully registered!');
+                                                //}, 3000)
+
+                                            }
+
+                                        } else {
+                                            clearInterval(objIntervalDb);
+                                            $('.progressbar .step-transfer .step-status').html('<span class="text-center" style="color:red;">Transfer ' + domain + ': Rejected</span>');
+                                        }
+
+                                        $('.btn-buy i').hide();
+
+                                        setTimeout(function () {
+                                            clickenble = true;
+
+                                            $('.btn-buy').attr('disabled', true);
+
+                                            myDomains(currentAddress, true);
+
+                                            $('.result-search').hide();
+
+                                            $('.step-status').html('');
+
+                                            minting = false;
+                                        }, 5000);
+                                    })
+                                })
+                                .catch(function (payloadError) {
+                                    $('.progressbar .step-payment .step-status').html('<span class="text-center" style="color:red;">Transfer: ' + payloadError + '</span>');
+                                })
+                        }
+                    }
+                    else {
+                        bootbox.alert('<p class="text-center" style="color:red;">The transaction is not complete, but dont worry. Please reload your browser and complete the steps under Domains Pending section <br/><a class="btn btn-success" href="/app?v=3">Reload</a></p>');
+                    }
+                }
+            } catch (e) {
+                bootbox.alert('<p class="text-center" style="color:red;">The transaction is not complete, but dont worry. Please reload your browser and complete the steps under Domains Pending section <br/><a class="btn btn-success" href="/app?v=3">Reload</a></p>');
+            }
         };
 
         const getOrderPending = async () => {
-            $('.domain-incoming').html('');
+            $('.domain-myorderpending').html('');
 
-            var url = 'api/xrplnft/getOfferByDestination?issuer=' + currentNetwork.contractAddress + '&network=' + currentNetwork.networkType + '&owner=' + currentAddress;
+            $('.myorderpending').hide();
+
+            var url = 'api/xrplnft/getOrdersPending?owner=' + currentAddress;
             var result = await doAjax(url, '', 'GET');
+            var orders = result.data;
 
-            var offers = result.data;
-
-            $('.myincoming').hide();
-            if (offers.length > 0) {
-                $('.myincoming').show();
+            if (orders.length == 0) {
+                $('.myorderpending').hide();
+                return;
             }
 
-            $.each(offers, async function (i, item) {
+            var count = 0;
+            $.each(orders, async function (i, item) {
+                item.msg = "";
+                var domain = item.domain;
+                if (domain !== '') {
+                    var isOK = true;
+                    var _owner = '';
+                    var _nftoken_id = '';
+                    try {
+                        var url = 'api/xrplnft/getNFTsbyIssuer?issuer=' + currentNetwork.contractAddress + '&network=' + currentNetwork.networkType + '&domain=' + domain;
+                        var result = await doAjax(url, '', 'GET');
+                        _owner = result.data[0].Owner;
+                        //_nftoken_id = result.data[0].NFTokenID;
+                    } catch (e) {
+                    }
+
+                    if (_owner !== '') {
+                        isOK = false;
+                    }
+
+                    if (isOK == true) {
+                        //if (_nftoken_id !== ''){
+                        //    item.nftoken_id = _nftoken_id;
+                        //}
+                        temp = '<div class="domain-item">';
+                        temp += '<div style="font-weight: bold;">' + domain + '</div>';
+                        temp += '<div style="font-size:10px; margin-top: 5px;">Status: <strong>' + item.status.toUpperCase() + '</strong></div>';
+                        temp += "<div data-domain='" + domain + "'' data-obj='" + JSON.stringify(item) + "' style='font-size:11px; margin-top: 5px;' class='btn btn-sm btn-outline-primary btn-continue-comfirm'>Continue</div>";
+                        temp += '</div>';
+
+                        $('.domain-myorderpending').append(temp);
+
+                        count++;
+
+                        $('.myorderpending').show();
+
+                        $('.myorderpending .orders_count').text('(' + count + ')');
+                    }
+                }
+            });
+        };
+
+        const getDomainTransfers = async () => {
+
+            $('.mytransfers').hide();
+
+            //outgoing domains
+
+            $('.domain-outcoming').html('');
+
+            var url = 'api/xrplnft/getOfferByOwner?issuer=' + currentNetwork.contractAddress + '&network=' + currentNetwork.networkType + '&owner=' + currentAddress;
+
+            var result = await doAjax(url, '', 'GET');
+
+            var offers_out = result.data;
+
+            var count_out = 0;
+
+            $.each(offers_out, async function (i, item) {
                 var nftoken_id = item.NFTokenID;
                 var offer_id = item.OfferID;
                 var owner = item.Owner;
+                var destination = item.Destination;
                 var temp = '';
                 var domain = '';
                 var obj = await doAjax('/api/xrplnft/getOrderbyNFTokenId?nftoken_id=' + nftoken_id, '', 'GET');
                 if (obj.data !== null) {
                     domain = obj.data.domain;
-                    temp = '<div class="domain-item"><div style="font-weight: bold;">' + obj.data.domain + '</div>';
+
                 }
                 else {
                     obj = await doAjax('/api/xrplnft/getNFTsbyNFTokenId?nftoken_id=' + nftoken_id, '&network=' + currentNetwork.networkType, 'GET');
@@ -1356,70 +2122,234 @@
                     if (uri.indexOf('api/nftdomains/metadata/') > 0) {
                         domain = URI(uri).pathname.replace('api/nftdomains/metadata/', '').replace('/', '');
                     }
-                    temp = '<div class="domain-item"><div style="font-weight: bold;">' + domain + '</div>';
                 }
-                temp += '<div data-domain="' + domain + '" data-offer-id="' + offer_id + '" style="font-size:11px; margin-top: 5px;" class="btn btn-sm btn-outline-primary btn-accept-comfirm">Accept</div>';
-                temp += '</div>';
-                $('.domain-incoming').append(temp);
+                if (domain !== '') {
+                    temp = '<div class="domain-item">';
+                    temp += '<div style="font-weight: bold;">' + domain + '</div>';
+                    temp += '<div style="font-size:10px; margin-top: 5px;">To: <strong>' + destination + '</strong></div>';
+                    temp += '<div data-domain="' + domain + '" data-offer-id="' + offer_id + '" style="font-size:11px; margin-top: 5px;" class="btn btn-sm btn-outline-primary btn-cancel-comfirm">Cancel</div>';
+                    temp += '</div>';
+
+                    $('.mytransfers').show();
+
+                    $('.myoutcoming').show();
+
+                    $('.domain-outcoming').append(temp);
+
+                    count_out++;
+                }
+
+                $('.myoutcoming .orders_count').text('(' + count_out + ')');
             });
 
 
+            // incoming domains
+            $('.domain-incoming').html('');
+
+            var url = 'api/xrplnft/getOfferByDestination?issuer=' + currentNetwork.contractAddress + '&network=' + currentNetwork.networkType + '&owner=' + currentAddress;
+            var result = await doAjax(url, '', 'GET');
+            var offers_in = result.data;
+            var count_in = 0;
+
+            $.each(offers_in, async function (i, item) {
+                var nftoken_id = item.NFTokenID;
+                var offer_id = item.OfferID;
+                var owner = item.Owner;
+                var temp = '';
+                var domain = '';
+
+                var obj = await doAjax('/api/xrplnft/getOrderbyNFTokenId?nftoken_id=' + nftoken_id, '', 'GET');
+                if (obj.data !== null) {
+                    domain = obj.data.domain;
+                }
+                else {
+                    obj = await doAjax('/api/xrplnft/getNFTsbyNFTokenId?nftoken_id=' + nftoken_id, '&network=' + currentNetwork.networkType, 'GET');
+                    var uri = xrpl.convertHexToString(obj.data.URI);
+                    if (uri.indexOf('api/nftdomains/metadata/') > 0) {
+                        domain = URI(uri).pathname.replace('api/nftdomains/metadata/', '').replace('/', '');
+                    }
+                }
+                if (domain !== '') {
+                    temp = '<div class="domain-item">';
+                    temp += '<div style="font-weight: bold;">' + domain + '</div>';
+                    temp += '<div style="font-size:10px; margin-top: 5px;">From: <strong>' + owner + '</strong></div>';
+                    temp += '<div data-domain="' + domain + '" data-offer-id="' + offer_id + '" style="font-size:11px; margin-top: 5px;" class="btn btn-sm btn-outline-primary btn-accept-comfirm">Accept</div>';
+                    temp += '</div>';
+
+                    $('.mytransfers').show();
+                    $('.myincoming').show();
+                    $('.domain-incoming').append(temp);
+                    count_in++;
+                }
+                $('.myincoming .orders_count').text('(' + count_in + ')');
+            });
+
+            if (offers_out.length == 0 && offers_in.length == 0) {
+                $('.mytransfers').hide();
+            }
+
         };
 
-        const acceptOffer = async (domain, offer_id) => {
+        var iscontinueOrder = false;
+
+        const continueOrder = async (domain, obj) => {
+            if (iscontinueOrder == true) {
+                return;
+            }
+
+            iscontinueOrder = true;
+
+            var status = obj.status;
+            var domain = obj.domain;
+            var payment_tx = obj.payment_tx;
+            var payload_uuid = obj.payload_uuid;
+
+            var amount = xrpl.dropsToXrp(obj.amount);
+
             var dialog = bootbox.dialog({
-                title: 'Accept Offer for ' + domain,
-                message: '<p class="text-center">Please wait while we do something... and do not close the browser.<br/><br/> <i class="fas fa-4x fa-spinner fa-spin"></i></p>',
+                title: 'Continue to process ' + domain,
+                message: '<p class="text-center">Please wait while we do something... and do not close the browser.<br/><span class="dialog-status"></span></br/><br/> <i class="fas fa-4x fa-spinner fa-spin"></i></p>',
                 closeButton: true,
                 size: 'large',
                 onHide: function (e) {
                     myDomains(currentAddress, '');
                     getOrderPending();
+                    $('.btn-continue-comfirm i').hide();
+                    $('.btn-continue-comfirm').attr('disabled', false);
                 }
             });
+
+            var nftoken_id = '';
+
+            if (obj.status == 'minted' && obj.nftoken_id !== '') {
+                nftoken_id = obj.nftoken_id;
+            }
+
+            if (nftoken_id !== '') {
+                try {
+                    var _obj = await doAjax('/api/xrplnft/getNFTsbyNFTokenId?nftoken_id=' + nftoken_id, '&network=' + currentNetwork.networkType, 'GET');
+                    var _owner = _obj.data.Owner;
+                    if (_owner == currentAddress) {
+                        var objAcceptOffered = new Object();
+                        objAcceptOffered.domain = domain;
+                        objAcceptOffered.owner = currentAddress;
+                        objAcceptOffered.accept_offer_tx = '';
+
+                        var acceptOfferedOrderUrl = '/api/xrplnft/acceptOfferedOrder';
+
+                        doAjax(acceptOfferedOrderUrl, JSON.stringify(objAcceptOffered), 'POST');
+
+                        if (dialog) {
+                            dialog.find('.bootbox-body .dialog-status').html('<span class="text-center mb-0" style="color:green;">Transfered ' + domain + ': Done</span>');
+                            dialog.find('.bootbox-body i').hide();
+                        }
+                        return;
+                    }
+                }
+                catch { }
+
+            }
+
+            await mintDomain(domain, amount, 'tesSUCCESS', payment_tx, payload_uuid, nftoken_id, dialog);
+
+            iscontinueOrder = false;
+        }
+
+        const acceptOffer = async (domain, offer_id) => {
+            var dialog = bootbox.dialog({
+                title: 'Accept sell offer for ' + domain,
+                message: '<p class="text-center">Please wait while we do something... and do not close the browser.<br/><br/> <i class="fas fa-4x fa-spinner fa-spin"></i></p>',
+                closeButton: true,
+                size: 'large',
+                onHide: function (e) {
+                    myDomains(currentAddress, '');
+                    getDomainTransfers();
+                }
+            });
+
+            var MemoData = xrpl.convertStringToHex(domain);
 
             const accept_payload = {
                 "TransactionType": "NFTokenAcceptOffer",
                 "Account": currentAddress,
                 "NFTokenSellOffer": offer_id,
+                "Memos": [
+                    {
+                        "Memo": {
+                            "MemoData": MemoData
+                        }
+                    }
+                ]
             }
 
             sdk.payload.createAndSubscribe(accept_payload, function (payloadEvent) {
                 if (typeof payloadEvent.data.signed !== 'undefined') {
-                    // What we return here will be the resolved value of the `resolved` property
                     return payloadEvent.data
                 }
             })
                 .then(function ({ created, resolved }) {
-                    setTimeout(function () {
-                        alert(created.pushed
-                            ? 'Now check Xumm, there should be a push notification + sign request in your event list waiting for you. Please wait while we do something... and do not close the this alert box!'
-                            : 'Now check Xumm, there should be a sign request in your event list waiting for you ;) (This would have been pushed, but it seems you did not grant Xumm the push permission)'
-                        )
-                    }, 1000);
+
+                    var payload_uuid = created.uuid;
+                    var objIntervalDb;
+                    var tx = '';
+                    var status = '';
+                    if (isMobile == true) {
+                        try {
+                            objIntervalDb = setInterval(async () => {
+                                if (tx !== null && tx !== '' && status !== '') {
+                                    clearInterval(objIntervalDb);
+                                    $('.progressbar .step-payment .step-status').html('<span class="text-center" style=""><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i>Xumm Wallet: Accepted & Checking</span>');
+                                    if (status == 'tesSUCCESS') {
+                                        var objAcceptOffered = new Object();
+                                        objAcceptOffered.domain = domain;
+                                        objAcceptOffered.owner = currentAddress;
+                                        objAcceptOffered.accept_offer_tx = tx;
+
+                                        var acceptOfferedOrderUrl = '/api/xrplnft/acceptOfferedOrder';
+
+                                        doAjax(acceptOfferedOrderUrl, JSON.stringify(objAcceptOffered), 'POST');
+
+                                        var explorer_transfer = '<br/><a target="_black" href="' + currentNetwork.blockExplorerUrls[0] + 'transactions/' + tx + '">View Transaction</a>';
+
+                                        dialog.find('.bootbox-body').html('<p class="text-center"><span class="text-center mb-0" style="color:green;">Transfer ' + domain + ': Done</span>' + explorer_transfer + '</p>');
+                                    }
+                                    else {
+                                        dialog.find('.bootbox-body').html('<p class="text-center"><span class="text-center mb-0" style="color:green;">Transfer ' + domain + ': Rejected</span></p>');
+                                    }
+                                }
+                                else {
+                                    var result = await sdk.payload.get(payload_uuid);
+                                    if (result) {
+                                        status = result.response.dispatched_result;
+                                        tx = result.response.txid;
+                                    }
+                                }
+                            }, 4000);
+
+                        } catch (e) {
+                            bootbox.alert('There was a transaction error, please refresh your browser and check the domain name under "Orders Pending"');
+                        }
+                    }
 
                     resolved.then(async function (payloadOutcome) {
-                        if (payloadOutcome.signed) {
-                            var objAcceptOffered = new Object();
-                            objAcceptOffered.domain = domain;
-                            objAcceptOffered.owner = currentAddress;
-                            objAcceptOffered.accept_offer_tx = payloadOutcome.txid;
+                        if (isMobile == false) {
+                            if (payloadOutcome.signed) {
+                                var objAcceptOffered = new Object();
+                                objAcceptOffered.domain = domain;
+                                objAcceptOffered.owner = currentAddress;
+                                objAcceptOffered.accept_offer_tx = payloadOutcome.txid;
 
-                            var acceptOfferedOrderUrl = '/api/xrplnft/acceptOfferedOrder';
+                                var acceptOfferedOrderUrl = '/api/xrplnft/acceptOfferedOrder';
 
-                            var acceptOfferedOrder = await doAjax(acceptOfferedOrderUrl, JSON.stringify(objAcceptOffered), 'POST');
+                                var acceptOfferedOrder = await doAjax(acceptOfferedOrderUrl, JSON.stringify(objAcceptOffered), 'POST');
 
-                            var explorer_transfer = '<br/><a target="_black" href="' + currentNetwork.blockExplorerUrls[0] + 'transactions/' + payloadOutcome.txid + '">View Transaction</a>';
+                                var explorer_transfer = '<br/><a target="_black" href="' + currentNetwork.blockExplorerUrls[0] + 'transactions/' + payloadOutcome.txid + '">View Transaction</a>';
 
-                            dialog.init(function () {
-                                dialog.find('.bootbox-body').html('<span class="text-center mb-0" style="color:green;">Transfer ' + domain + ': Done</span>' + explorer_transfer);
-                            });
-                        } else {
-                            dialog.init(function () {
-                                setTimeout(function () {
-                                    dialog.find('.bootbox-body').html('<span class="text-center mb-0" style="color:red;">Transfer ' + domain + ': Rejected</span>');
-                                }, 1000);
-                            });
+                                dialog.find('.bootbox-body').html('<p class="text-center"><span class="text-center mb-0" style="color:green;">Transfer ' + domain + ': Done</span>' + explorer_transfer + '</p>');
+
+                            } else {
+                                dialog.find('.bootbox-body').html('<p class="text-center"><span class="text-center mb-0" style="color:red;">Transfer ' + domain + ': Rejected</span></p>');
+                            }
                         }
                     })
                 })
@@ -1428,136 +2358,58 @@
                 });
         }
 
-        const mintDomain = async (domain, payment_tx) => {
-
-            // 1: Payment
-            var paymentStatus = '';
-            var amount = 0;
-            var destination = '';
-
-            domain = domain.replaceAll(/\s/g, '').toLowerCase();
-
-            var url = currentNetwork.baseUri + domain;
-
-            var uri = xrpl.convertStringToHex(url);
-
-            try {
-                const payment_payload = await client.request({
-                    command: 'tx',
-                    transaction: payment_tx,
-                    binary: false
-                });
-                paymentStatus = payment_payload.result.meta.TransactionResult;
-                amount = xrpl.dropsToXrp(payment_payload.result.Amount);
-                destination = payment_payload.result.Destination;
-            }
-            catch { }
-
-            if (paymentStatus !== 'tesSUCCESS') {
-                $('.progressbar .step-payment .step-status').html('<span class="text-center" style="color:red;">Payment not success ...</span>');
-                return;
-            }
-
-            var explorer_payment = '<br/><a target="_black" href="' + currentNetwork.blockExplorerUrls[0] + 'transactions/' + payment_tx + '">View Transaction</a>';
-
-            $('.progressbar .step-payment .step-status').html('<span class="text-center" style="color:green;">Xumm Wallet: Done</span>' + explorer_payment);
-
-            $('.progressbar .step-payment').addClass('step-done');
-
-            $('.progressbar .step-mint .step-status').html('<span class="text-center" style=""><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i>Minting ' + domain + '</span>');
-
-            var objOrder = new Object();
-            objOrder.domain = domain;
-            objOrder.payment_tx = payment_tx;
-            objOrder.buyer = currentAddress;
-            objOrder.owner = currentAddress;
-            objOrder.issuer = currentNetwork.contractAddress;
-            objOrder.receiver = currentNetwork.contractAddress;
-            objOrder.amount = amount;
-            objOrder.price = currentNetwork.basePrice;
-            objOrder.base_uri = currentNetwork.baseUri;
-            objOrder.network = currentNetwork.networkType;
-            objOrder.uri = uri;
-            objOrder.url = url;
-            objOrder.uuid = uuid;
-
-            var createOrderUrl = '/api/xrplnft/createOrder';
-
-            var createOrder = await doAjax(createOrderUrl, JSON.stringify(objOrder), 'POST');
-
-            if (createOrder.data.mint_tx !== '') {
-                var explorer_mint = '<br/><a target="_black" href="' + currentNetwork.blockExplorerUrls[0] + 'transactions/' + createOrder.data.mint_tx + '">View Transaction</a>';
-                $('.progressbar .step-mint .step-status').html('<span class="text-center" style="color:green;">Minted ' + domain + '</span>' + explorer_mint);
-                $('.progressbar .step-mint').addClass('step-done');
-            }
-
-            // 3: Transfers
-            if (createOrder.data.offer_id !== '') {
-                $('.progressbar .step-transfer .step-status').html('<span class="text-center" style=""><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i>Transfering ' + domain + '</span>');
-
-                const accept_payload = {
-                    "TransactionType": "NFTokenAcceptOffer",
-                    "Account": currentAddress,
-                    "NFTokenSellOffer": createOrder.data.offer_id,
+        const cancelOffer = async (domain, offer_id) => {
+            var dialog = bootbox.dialog({
+                title: 'Accept Offer for ' + domain,
+                message: '<p class="text-center">Please wait while we do something... and do not close the browser.<br/><br/> <i class="fas fa-4x fa-spinner fa-spin"></i></p>',
+                closeButton: true,
+                size: 'large',
+                onHide: function (e) {
+                    myDomains(currentAddress, '');
+                    getDomainTransfers();
                 }
+            });
 
-                sdk.payload.createAndSubscribe(accept_payload, function (payloadEvent) {
-                    if (typeof payloadEvent.data.signed !== 'undefined') {
-                        // What we return here will be the resolved value of the `resolved` property
-                        return payloadEvent.data
+            var MemoData = xrpl.convertStringToHex(domain);
+
+            const tokenOfferIDs = [offer_id];
+
+            const cancel_payload = {
+                "TransactionType": "NFTokenCancelOffer",
+                "Account": currentAddress,
+                "NFTokenOffers": tokenOfferIDs,
+                "Memos": [
+                    {
+                        "Memo": {
+                            "MemoData": MemoData
+                        }
                     }
-                })
-                    .then(function ({ created, resolved }) {
-                        setTimeout(function () {
-                            alert(created.pushed
-                                ? 'Now check Xumm, there should be a push notification + sign request in your event list waiting for you. Please wait while we do something... and do not close the this alert box!'
-                                : 'Now check Xumm, there should be a sign request in your event list waiting for you ;) (This would have been pushed, but it seems you did not grant Xumm the push permission)'
-                            )
-                        }, 1500);
-                        resolved.then(async function (payloadOutcome) {
-                            if (payloadOutcome.signed) {
-                                $('.progressbar .step-transfer .step-status').html('<span class="text-center"><i class="fas fa-spinner fa-spin" style="margin-right:5px;"></i>Transfering ' + domain + ': Accepting ...</span>');
-
-                                var objAcceptOffered = new Object();
-                                objAcceptOffered.domain = domain;
-                                objAcceptOffered.owner = currentAddress;
-                                objAcceptOffered.accept_offer_tx = payloadOutcome.txid;
-
-                                var acceptOfferedOrderUrl = '/api/xrplnft/acceptOfferedOrder';
-
-                                doAjax(acceptOfferedOrderUrl, JSON.stringify(objAcceptOffered), 'POST');
-
-                                var explorer_transfer = '<br/><a target="_black" href="' + currentNetwork.blockExplorerUrls[0] + 'transactions/' + payloadOutcome.txid + '">View Transaction</a>';
-
-
-                                $('.progressbar .step-transfer .step-status').html('<span class="text-center" style="color:green;">Transfered ' + domain + '</span>' + explorer_transfer);
-                                $('.progressbar .step-transfer').addClass('step-done');
-
-                            } else {
-                                $('.progressbar .step-transfer .step-status').html('<span class="text-center" style="color:red;">Transfer ' + domain + ': Rejected</span>');
-
-                            }
-
-                            setTimeout(function () {
-                                clickenble = true;
-
-                                $('.btn-buy i').hide();
-
-                                $('.btn-buy').attr('disabled', true);
-
-                                myDomains(currentAddress, true);
-
-                                $('.result-search').hide();
-
-                                $('.step-status').html('');
-                            }, 400);
-                        })
-                    })
-                    .catch(function (payloadError) {
-                        $('.progressbar .step-payment .step-status').html('<span class="text-center" style="color:red;">Transfer: ' + payloadError + '</span>');
-                    })
+                ]
             }
-        };
+
+            sdk.payload.createAndSubscribe(cancel_payload, function (payloadEvent) {
+                if (typeof payloadEvent.data.signed !== 'undefined') {
+                    // What we return here will be the resolved value of the `resolved` property
+                    return payloadEvent.data
+                }
+            })
+                .then(function ({ created, resolved }) {
+
+                    resolved.then(async function (payloadOutcome) {
+                        if (payloadOutcome.signed) {
+                            var explorer_cancel = '<br/><a target="_black" href="' + currentNetwork.blockExplorerUrls[0] + 'transactions/' + payloadOutcome.txid + '">View Transaction</a>';
+
+                            dialog.find('.bootbox-body').html('<p class="text-center"><span class="text-center mb-0" style="color:green;">Cancel offer ' + domain + ': Done</span>' + explorer_cancel + '</p>');
+
+                        } else {
+                            dialog.find('.bootbox-body').html('<p class="text-center"><span class="text-center mb-0" style="color:red;">Cancel offer ' + domain + ': Rejected</span></p>');
+                        }
+                    })
+                })
+                .catch(function (payloadError) {
+                    //$('.progressbar .step-payment .step-status').html('<span class="text-center" style="color:red;">Xumm Wallet: ' + payloadError + '</span>');
+                });
+        }
 
         var dataSource = [];
 
@@ -1578,11 +2430,11 @@
 
                     //alert(JSON.stringify(obj));
 
-                    //var tokenUrl = currentNetwork.blockExplorerUrls[0] + 'token/' + currentNetwork.contactAddress + '?a=' + obj.tokenId + '#inventory';
+                    //var tokenUrl = currentNetwork.blockExplorerUrls[0] + 'token/' + currentNetwork.contractAddress + '?a=' + obj.tokenId + '#inventory';
 
                     var name = obj.domain;
                     var image = '';
-                    if (obj.image !== undefined) {
+                    if (obj.image !== undefined && obj.image !== '') {
                         image = obj.image;
                     }
                     var btnlbl = 'Set Primary';
@@ -1594,12 +2446,12 @@
                     var explorer_tokenId = currentNetwork.blockExplorerUrls[0] + 'nft/' + obj.tokenId;
 
                     var temp = "<div class='mydomain-item'>";
-                    temp += "<div class=''><a target='_blank' class='domain-link' data-domain='" + name + "' style='text-decoration: none;' href='" + image + "'><img class='domain-image lazy' data-src='" + image + "' src='/images/spinner.gif?v=3' data-domain='" + name + "' style='width: 100%;' /><p class='domain-name' data-domain='" + name + "' style='margin-top: 10px;'>" + name + "</p></a></div>";
+                    temp += "<div class=''><a target='_blank' class='domain-link' data-domain='" + name + "' style='text-decoration: none;' href='" + image + "'><img class='domain-image lazy' data-src='" + image + "' src='/images/spinner.gif?v=3' data-domain='" + name + "' style='width: 100%;' /></a><p class='domain-name' data-domain='" + name + "' style='margin-top: 10px;'>" + name + "</p></div>";
                     //temp += "<div style='cursor:pointer; margin-top: 5px;' data-obj='" + JSON.stringify(obj) + "'title='Remove NFT Avatar' class='btn btn-remove-avatar'><i class='fas fa-trash-alt'></i></div>";
-                    temp += "<a target='_blank' style='text-decoration: none;' class='btn btn-sm btn-outline-success' href='" + explorer_tokenId + "'>View NFTokenID</a>";
-                    //temp += "<div style='cursor:pointer; margin-top: 5px;' data-domain='" + obj.tokenId + "' data-remove='" + isremove + "' class='btn btn-sm btn-outline-success btn-set-reverse'>" + btnlbl + "</div>";
+                    temp += "<a target='_blank' style='text-decoration: none;' class='btn btn-sm btn-outline-success' href='" + explorer_tokenId + "'>View NFToken</a>";
+                    temp += "<div style='cursor:pointer; margin-top: 5px;' data-tokenid='" + obj.tokenId + "' data-obj='" + JSON.stringify(obj) + "' data-domain='" + obj.domain + "' data-remove='" + isremove + "' class='btn btn-sm btn-outline-success btn-set-reverse'>" + btnlbl + "</div>";
                     //temp += "<div style='cursor:pointer; margin-top: 5px;' data-obj='" + JSON.stringify(obj) + "' class='btn btn-sm btn-outline-success btn-set-avatar'>Set Avatar</div>";
-                    //temp += "<div style='cursor:pointer; margin-top: 5px;' data-obj='" + JSON.stringify(obj) + "' class='btn btn-sm btn-outline-success btn-send'>Send Domain</div>";
+                    temp += "<div style='cursor:pointer; margin-top: 5px;' data-obj='" + JSON.stringify(obj) + "' class='btn btn-sm btn-outline-success btn-send'>Send Domain</div>";
                     if (obj.tld.length > 0) {
                         var num = name.match(/\./g).length;
                         if (num == 1) {
@@ -1614,7 +2466,7 @@
                     if (image == '') {
                         var endpoint = '/api/nftdomains/metadata/' + name;
                         $.getJSON(endpoint, function (result) {
-                            var image = result.image + '?t=' + t;
+                            var image = result.image;
                             $('.domain-image[data-domain="' + name + '"]').attr('data-src', image);
                             $('.domain-name[data-domain="' + name + '"]').text(result.name);
                             $('.domain-link[data-domain="' + name + '"]').attr('href', image);
@@ -1630,7 +2482,7 @@
                         visibleOnly: true,
                         removeAttribute: true
                     });
-                }, 1500);
+                }, 1000);
             }
         };
 
@@ -1667,27 +2519,28 @@
 
                 var nfts = _results.result.account_nfts;
 
-                nfs = nfts.find(p => p.Issuer == currentNetwork.contactAddress);
+                nfs = nfts.find(p => p.Issuer == currentNetwork.contractAddress);
 
                 //alert(JSON.stringify(nfts));
 
-                balance = nfts.length;
-
-                $('.total-domains').html(balance);
-
                 var i = 1;
+
+                const emojiRegex = /\p{Emoji}/u;
 
                 $.each(nfts, function (i, item) {
                     //alert(JSON.stringify(item));
-                    if (currentNetwork.contactAddress == item.Issuer) {
+                    if (currentNetwork.contractAddress == item.Issuer) {
                         var uri = xrpl.convertHexToString(item.URI);
                         if (uri.indexOf('api/nftdomains/metadata/') > 0) {
                             var domain = URI(uri).pathname.replace('/', '').replace('api/nftdomains/metadata/', '');
                             //alert(domain);
+                            domain = decodeURIComponent(domain);
                             var tld = '';
                             if (domain.indexOf('.') >= 0) {
                                 tld = domain.split('.').pop();
                             }
+
+
                             var obj = new Object();
                             obj.issuer = item.Issuer
                             obj.owner = currentAddress;
@@ -1695,6 +2548,11 @@
                             obj.domain = domain;
                             obj.domainless = domain.replace('.' + tld, '');
                             obj.tld = tld;
+                            obj.image = '';
+                            var isOK = emojiRegex.test(obj.domainless);
+                            if (isOK == false) {
+                                obj.image = '/NFTDomains/xrp/' + obj.domain + '.png';
+                            }
                             dataSource.push(obj);
                             i++;
                         }
@@ -1726,8 +2584,9 @@
             }
 
             if (domain_type.length > 0) {
-                const emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi;
                 var dataSourceTemp = [];
+                //const emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi;
+                const emojiRegex = /\p{Emoji}/u;
                 $.each(dataSourceNew, function (i, obj) {
                     var isOK = false;
                     switch (domain_type) {
@@ -1781,7 +2640,11 @@
                 dataSourceNew = dataSourceTemp;
             }
 
-            $('.result-count').html(dataSourceNew.length + ' results');
+            balance = dataSourceNew.length;
+
+            $('.total-domains').html(balance);
+
+            $('.result-count').html(balance + ' results');
 
             var pageSize = 20;
 
@@ -1963,11 +2826,140 @@
             $(document).on('click', '.btn-mydomain-search', async function (e) {
                 await myDomains(currentAddress, false);
             });
+            //btn-comfirm-reverse
+            $(document).on('click', '.btn-set-reverse', async function () {
+                var str = $(this).attr('data-obj');
+                if (str == '') {
+                    return;
+                }
+                var isremove = $(this).attr('data-remove');
+                if (isremove == '') {
+                    isremove = 'false';
+                }
+                setPrimary(JSON.parse(str), isremove);
+            });
+
+            $(document).on('click', '.btn-comfirm-reverse', async function () {
+                var str = $('.hiddenTransfers').val();
+                if (str == '') {
+                    return;
+                }
+                setPrimaryComfirm(JSON.parse(str));
+            });
 
             $(document).on('click', '.btn-accept-comfirm', async function (e) {
                 var domain = $(this).attr('data-domain');
                 var offer_id = $(this).attr('data-offer-id');
                 await acceptOffer(domain, offer_id);
+            });
+
+            $(document).on('click', '.btn-cancel-comfirm', async function (e) {
+                var domain = $(this).attr('data-domain');
+                var offer_id = $(this).attr('data-offer-id');
+                await cancelOffer(domain, offer_id);
+            });
+
+            $(document).on('click', '.btn-continue-comfirm', async function (e) {
+                var domain = $(this).attr('data-domain');
+                var obj = $(this).attr('data-obj');
+                await continueOrder(domain, JSON.parse(obj));
+            });
+
+            $(document).on('click', '.btn-send', async function () {
+                var str = $(this).attr('data-obj');
+                if (str == '') {
+                    return;
+                }
+                var obj = JSON.parse(str);
+                if (obj == null) {
+                    return;
+                }
+                transferForm(obj);
+            });
+
+            $(document).on('click', '.btn-transfer-comfirm', async function () {
+                var str = $('.hiddenTransfers').val();
+                var toAddress = $('.to_hidden_address').val();
+
+                if (str == '' || toAddress == '') {
+                    alert('Please enter to address');
+                    return;
+                }
+
+                var isAddress = xrpl.isValidAddress(toAddress);
+
+                if (isAddress == false) {
+                    alert('wallet address not in xrp format');
+                    return;
+                }
+
+                if (toAddress == currentAddress) {
+                    alert('The sending address must be different from the receiving address');
+                    return;
+                }
+
+                var obj = JSON.parse(str);
+                if (obj == null) {
+                    return;
+                }
+                obj.to = toAddress;
+
+                $('.btn-transfer-comfirm i').show();
+
+                $('.btn-transfer-comfirm').attr('disabled', true);
+
+                transferComfirm(obj);
+            });
+
+            $(document).on('change', '.to_address', async function () {
+                var to = $(this).val().trim();
+                if (to == '') {
+                    return;
+                }
+
+                $('.to_hidden_address').val('');
+
+                $('.btn-transfer-comfirm').attr('disabled', true);
+
+                var isAddress = xrpl.isValidAddress(to);
+
+                if (isAddress == true) {
+                    $('.to_hidden_address').val(to);
+                    try {
+                        var owner = to;
+                        var domain = '';
+                        var ethavatar = "<div class='ethavatar' style='width: 35px; float:left; margin: 5px;'>" + multiavatar(owner) + "</div>";
+                        var ownerinfo = "<div class='ownerinfo'><div class='strong' style='color: green;'>XRP Wallet Address</div><div class='small'>" + owner + "</div></div>";
+                        var lblowner = ethavatar + ownerinfo;
+                        $('.to_reverse').html(lblowner).show();
+                    } catch {
+                        $('.to_reverse').html(lblowner).hide();
+                    }
+                }
+
+                if (isAddress == false) {
+                    var domain = to;
+                    var owner = '';
+                    try {
+                        var url = 'api/xrplnft/getNFTsbyIssuer?issuer=' + currentNetwork.contractAddress + '&network=' + currentNetwork.networkType + '&domain=' + domain;
+                        var result = await doAjax(url, '', 'GET');
+                        owner = result.data[0].Owner;
+                    } catch (e) {
+                    }
+                    if (owner !== '') {
+                        $('.to_hidden_address').val(owner);
+                        var ethavatar = "<div class='ethavatar' style='width: 35px; float:left; margin: 5px;'>" + multiavatar(domain) + "</div>";
+                        var ownerinfo = "<div class='ownerinfo'><div class='strong' style='color: green;'>" + domain + "</div><div class='small'>" + owner + "</div></div>";
+                        var lblowner = ethavatar + ownerinfo;
+                        $('.to_reverse').html(lblowner).show();
+                    }
+                    else {
+                        $('.to_hidden_address').val('');
+                        $('.to_reverse').html('').hide();
+                    }
+                }
+
+                $('.btn-transfer-comfirm').attr('disabled', false);
             });
 
             myDomains(currentAddress, true);
@@ -2016,6 +3008,21 @@
             $temp.remove();
         }
 
+        const shortAddress = (address) => {
+            var text = '';
+            for (let i = 0; i < 5; i++) {
+                text += address[i];
+            }
+
+            text += '...'
+
+            for (let i = address.length - 4; i < address.length; i++) {
+                text += address[i];
+            }
+
+            return text;
+        }
+
         function fullDomain(domain, tld) {
             domain = fixDomain(domain) + tld;
             return domain;
@@ -2032,6 +3039,47 @@
                 return v.toString(16);
             });
         };
+
+        function callConfetti() {
+            var count = 200;
+            var defaults = {
+                origin: { y: 0.7 }
+            };
+
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio),
+                    zIndex: 999999
+                }));
+            }
+
+            fire(0.25, {
+                spread: 26,
+                startVelocity: 55,
+            });
+            fire(0.2, {
+                spread: 60,
+            });
+            fire(0.35, {
+                spread: 100,
+                decay: 0.91,
+                scalar: 0.8
+            });
+            fire(0.1, {
+                spread: 120,
+                startVelocity: 25,
+                decay: 0.92,
+                scalar: 1.2
+            });
+            fire(0.1, {
+                spread: 120,
+                startVelocity: 45,
+            });
+
+            setTimeout(() => {
+                confetti.reset();
+            }, 2000);
+        }
     </script>
 </body>
 

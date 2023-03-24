@@ -17,6 +17,7 @@
 	<link type="text/css" rel="stylesheet" href="/css/custom-new.css?v=78" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery-countdown@2.2.0/dist/jquery.countdown.min.js"></script>
 	<script type="text/javascript" src="/lib/jQuery/PluginStack/Wow-js/wow.min.js"></script>
 	<script type="text/javascript" src="/js/custom.js?v=8"></script>
 	<link rel="icon" href="/favicon/favicon-96x96.png?v=3" />
@@ -40,7 +41,7 @@
 						<div class="menu-close"><i class="fal fa-times-circle"></i></div>
 						<ul class="nav">
 							<li class="nav-item active"><a data-id="#home" href="/">Home</a></li>
-							<li class="nav-item"><a href="#">Launch App</a></li>
+							<li class="nav-item"><a href="/app?v=2">Launch App</a></li>
 							<li class="nav-item"><a data-id="#greatfeatures" href="#">Great Features</a></li>
 							<li class="nav-item"><a data-id="#roadmap" href="#">Roadmap</a></li>
 							<li class="nav-item"><a data-id="" target="_blank"
@@ -73,8 +74,8 @@
 					</div>
 				</div>
 				<a class="btn btn-slider btn-large btn-rounded btn-blue btn-hvr-white btn-custom"
-					style="margin-right: 5px; margin-bottom: 5px;" href="#">
-					Launch App (Mainnet Coming Soon)
+					style="margin-right: 5px; margin-bottom: 5px;" href="/app?v=3">
+					Launch App <span class="countdown" class="text-center" data-date=""></span>
 				</a>
 			</div>
 		</div>
@@ -523,14 +524,14 @@
 				<div class="col-md-4 colsm-4 col-xs-12 document-one wow fadeInUp" data-wow-delay="0.3s">
 					<div class="document-items">
 						<div class="document-icon">
-							<a target="_blank" href='/file/XRP-Web3-Identity-Pitch-V1.pdf'>
+							<a target="_blank" href='/file/XRP-Web3-Identity-Pitch-V2.pdf?v=1'>
 								<div class="document-border">
 									<i class="fas fa-folders"></i>
 								</div>
 							</a>
 						</div>
 						<div class="document-title">
-							<a target="_blank" href='/file/XRP-Web3-Identity-Pitch-V1.pdf'>Project Pitch</a>
+							<a target="_blank" href='/file/XRP-Web3-Identity-Pitch-V2.pdf?v=1'>Project Pitch</a>
 						</div>
 					</div>
 				</div>
@@ -558,7 +559,7 @@
 							</a>
 						</div>
 						<div class="document-title">
-							<a target="_blank" href='https://github.com/XRPDomains'>Development</a>
+							<a target="_blank" href='https://docs.xrpdomains.xyz/developer-guide/xrpl-name-sdk'>SDK & API</a>
 						</div>
 					</div>
 				</div>
@@ -638,8 +639,26 @@
 			</div>
 		</div>
 		<div class="warp-copyright text-center">
-			Copyright © 2022 XRP Web3 Identity - A member of <a href='https://xdcdomains.xyz/'>XDCDomains.xyz</a>
+			Copyright © 2023 XRP Web3 Identity - A member of <a href='https://xdcdomains.xyz/'>XDCDomains.xyz</a>
 		</div>
 	</div>
+	<script type="text/javascript">
+		window.addEventListener('load', async () => {
+            $(".countdown").countdown("2023-03-14 15:00 UTC", function(event) {
+                var days = event.offset.days;
+                var hours = event.offset.hours;
+                var minutes = event.offset.minutes;
+                var seconds = event.offset.seconds;
+                $(this).html(
+                event.strftime('<span>%D d %H h %M m %S s</span>')
+                );
+                if (days == 0 && hours == 0 && minutes == 0 && seconds == 0){
+                    $(".countdown").hide();
+                }
+            }).on('finish.countdown', function(){
+                $(".countdown").hide();
+            });
+        });
+	</script>
 </body>
 </html>
